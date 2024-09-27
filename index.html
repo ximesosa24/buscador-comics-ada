@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,11 +12,37 @@
         <div class="bg-red-600 py-2">
             <h1 class="flex text-white font-extrabold justify-center text-2xl">ADA COMICS</h1>
         </div>
-        <div>
-            <img src="./assets/banner.jpg" alt="imagen-superheroes">
-        </div>
-        
     </header>
+    <main>
+        <div class="h-72">
+            <img src="./assets/banner.jpg" alt="banner-superheroes" class="h-full w-full object-cover">
+        </div>
+        <div class="py-6 px-12 bg-red-100 flex">
+            <form class="w-full">
+                <h2 class="text-2xl font-extrabold">Búsqueda</h2>
+                <input type="text" placeholder="Ingresá tu búsqueda" class="bg-red-200 mr-8 h-8 w-1/2">
+                <label for="comics" class="ml-14">Tipo
+                <select class="bg-red-200" id="comics">
+                    <option value="comics">COMICS</option>
+                    <option value="personajes">PERSONAJES</option>
+                </label>
+                </select>
+                <label for="orden" class="ml-8">Orden
+                    <select class="bg-red-200" id="orden">
+                        <option value="a-z">A-Z</option>
+                        <option value="z-a">Z-A</option>
+                        <option value="mas-nuevo">Más nuevo</option>
+                        <option value="mas-viejo">Más viejo</option>
+                    </select>
+                </label>
+                    <button type="submit" class="bg-black text-white py-2 px-4 rounded-md ml-8">BUSCAR</button>
+            </form>
+            <div>
+                <h2 class="text-2xl font-extrabold pt-6">Resultados</h2>
+                <p class="text-gray-600" id="resultados-busqueda">Resultados</p>
+            </div>
+        </div>
+    </main>
     <script src="main.js"></script>
 </body>
 </html>

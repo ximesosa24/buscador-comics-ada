@@ -1,5 +1,5 @@
 // Variables
-const urlApi = "http://gateway.marvel.com/v1/public";
+const urlApi = "https://gateway.marvel.com/v1/public";
 const personajes = "/characters";
 const urlComics = "/comics";
 const publicKey = "5097480aa6dc4ac1d4f47f09120fe013";

@@ -12,7 +12,7 @@
 <body>
     <header>
         <nav class="flex justify-center bg-black h-20 items-center fixed z-10 w-full">
-            <picture class="flex justify-center w-1/3 h-14">
+            <picture class="flex justify-center w-1/3 h-14 cursor-pointer">
                 <img src="./assets/ada-comics.png" alt="ADA COMICS" class="w-fit">
             </picture>
         </nav>
@@ -25,10 +25,10 @@
             </picture>
         </div>        
         <div class="py-6 px-12 bg-red-100 flex">
-            <form class="w-full">
+            <form class="w-full" id="search-form">
                 <h2 class="text-2xl font-extrabold">Búsqueda</h2>
                 <i class="fas fa-search"></i>
-                <input type="text" placeholder="Ingresá tu búsqueda" class="bg-red-200 mr-8 h-8 w-1/2 rounded-md">
+                <input type="text" placeholder="Ingresá tu búsqueda" class="bg-red-200 mr-8 h-8 w-1/2 rounded-md" id="search-input">
                 <label for="comics" class="ml-14">Tipo
                 <select class="bg-red-200" id="comics">
                     <option value="comics">COMICS</option>
@@ -47,14 +47,22 @@
             </form>
             <div>
                 <h2 class="text-2xl font-extrabold pt-6">Resultados</h2>
-                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 text-black cursor-pointer" id="resultados-busqueda">Resultados</div>
+                <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8 text-black cursor-pointer px-4" id="resultados-busqueda">Resultados</div>
             </div>
         </div>
-        <div class="flex justify-center gap-2">
-            <i class="fa fa-angle-double-left fa-2x cursor-pointer"></i>
-            <i class="fa fa-angle-left fa-2x cursor-pointer"></i>
-            <i class="fa fa-angle-right fa-2x cursor-pointer"></i>
-            <i class="fa fa-angle-double-right fa-2x cursor-pointer"></i>
+        <!-- Modal para mostrar detalles del cómic -->
+        <div id="comic-modal" class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex justify-center items-center">
+            <div class="bg-white p-5 rounded">
+                <span id="close-modal" class="cursor-pointer">✖</span>
+                <div id="detalles-comic"></div>
+            </div>
+        </div>
+        <!-- Paginación -->
+        <div class="flex justify-center gap-5 bg-red-100" id="paginacion">
+            <i class="fa fa-angle-double-left fa-2x cursor-pointer hover:bg-red-300 p-2" id="primerBtn"></i>
+            <i class="fa fa-angle-left fa-2x cursor-pointer hover:bg-red-300 p-2"></i>
+            <i class="fa fa-angle-right fa-2x cursor-pointer hover:bg-red-300 p-2"></i>
+            <i class="fa fa-angle-double-right fa-2x cursor-pointer hover:bg-red-300 p-2"></i>
         </div>
         <footer>
             <div class="bg-black py-8">

@@ -3,7 +3,7 @@ const urlApi = "http://gateway.marvel.com/v1/public";
 const personajes = "/characters";
 const urlComics = "/comics";
 const publicKey = "5097480aa6dc4ac1d4f47f09120fe013";
-const privateKey = "";
+const privateKey = "0a31a7f54f4fce53ce4ede3672f782e686637ae2";
 
 let resultadosGlobales = [];
 let paginaActual = 1;
@@ -119,42 +119,53 @@ function mostrarResultados(pagina) {
         resultadosElement.appendChild(itemElement);
     });
 }
+function mostrarDetalles(comicId) {
+    const ts = Date.now().toString(); 
+    const hash = CryptoJS.MD5(ts + privateKey + publicKey).toString();
+    const url = `${urlApi}${urlComics}/${comicId}?apikey=${publicKey}&ts=${ts}&hash=${hash}`;
 
-// function mostrarDetalles(comicId) {
-//     const ts = Date.now().toString(); 
-//     const hash = CryptoJS.MD5(ts + privateKey + publicKey).toString();
-//     const url = `${urlApi}${urlComics}/${comicId}?apikey=${publicKey}&ts=${ts}&hash=${hash}`;
+    fetch(url)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Error en la respuesta de la API");
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log(data); // Verifica la respuesta
+            if (data.data.results.length === 0) {
+                alert("No se encontraron detalles para este cómic.");
+                return;
+            }
 
-//     fetch(url)
-//         .then(response => response.json())
-//         .then(data => {
-//             const comic = data.data.results[0]; // Asumiendo que solo hay un resultado
-//             const detallesElement = document.getElementById('detalles-comic');
-//             detallesElement.innerHTML = ""; // Limpiar detalles anteriores
+            const comic = data.data.results[0];
+            const detallesElement = document.getElementById('detalles-comic');
+            detallesElement.innerHTML = ""; // Limpiar detalles anteriores
 
-//             const titleElement = document.createElement('h1');
-//             titleElement.innerText = comic.title;
+            const titleElement = document.createElement('h1');
+            titleElement.innerText = comic.title;
 
-//             const img = document.createElement('img');
-//             img.src = `${comic.thumbnail.path}.${comic.thumbnail.extension}`;
-//             img.alt = comic.title;
+            const img = document.createElement('img');
+            img.src = `${comic.thumbnail.path}.${comic.thumbnail.extension}`;
+            img.alt = comic.title;
 
-//             const descriptionElement = document.createElement('p');
-//             descriptionElement.innerText = comic.description || "No hay descripción disponible.";
+            const descriptionElement = document.createElement('p');
+            descriptionElement.innerText = comic.description || "No hay descripción disponible.";
 
-//             detallesElement.appendChild(titleElement);
-//             detallesElement.appendChild(img);
-//             detallesElement.appendChild(descriptionElement);
+            detallesElement.appendChild(titleElement);
+            detallesElement.appendChild(img);
+            detallesElement.appendChild(descriptionElement);
 
-//             // Mostrar el modal
-//             document.getElementById('comic-modal').classList.remove('hidden');
-//         })
-//         .catch(error => {
-//             console.error("Error fetching comic details:", error);
-//         });
-// }
+            // Mostrar el modal
+            document.getElementById('comic-modal').classList.remove('hidden');
+        })
+        .catch(error => {
+            console.error("Error fetching comic details:", error);
+            alert("Ocurrió un error al cargar los detalles del cómic.");
+        });
+}
 
-// // Cerrar el modal al hacer clic en la 'x'
-// document.getElementById('close-modal').addEventListener('click', () => {
-//     document.getElementById('comic-modal').classList.add('hidden');
-// });
+// Cerrar el modal al hacer clic en la 'x'
+document.getElementById('close-modal').addEventListener('click', () => {
+    document.getElementById('comic-modal').classList.add('hidden');
+});
